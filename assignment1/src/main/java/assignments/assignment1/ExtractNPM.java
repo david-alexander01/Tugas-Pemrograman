@@ -12,13 +12,36 @@ public class ExtractNPM {
     - Method to help you do the validation
     - and so on
     */
+    public static int getEntryYear(long npm){
+        // Returns year of entry in the 21st century
+        return 2000 + Integer.parseInt(Long.toString(npm).substring(0, 2));
+    }
+
+    public static String getJurusan(long npm){
+        // Returns string of jurusan else "invalid" if code is invalid.
+        String jurusanCode = (npm + "").substring(2, 4);
+        return switch (jurusanCode) {
+            case "01" -> "Ilmu Komputer";
+            case "02" -> "Sistem Informasi";
+            case "03" -> "Teknologi Informasi";
+            case "11" -> "Teknik Telekomunikasi";
+            case "12" -> "Teknik Elektro";
+            default -> "invalid";
+        };
+    }
+
+    public static String getBirthDate(long npm){
+        // Returns birthday in the format of "dd-mm-yyyy"
+        String birthDate = (npm + "").substring(4, 12);
+        String date = birthDate.substring(0, 2);
+        String month = birthDate.substring(2, 4);
+        String year = birthDate.substring(4);
+        return String.format("%2s-%2s-%4s", date, month, year);
+    }
 
     public static boolean validate(long npm) {
-        // TODO: validate NPM, return it with boolean
         String npmString = npm + "";
-        String jurusanCode = npmString.substring(2, 4);
-        int entryYear = 2000 + Integer.parseInt(npmString.substring(0, 2));
-        String birthDate = npmString.substring(4, 12);
+        int entryYear = getEntryYear(npm);
         int validationCode = Integer.parseInt(String.valueOf(npmString.charAt(13)));
 
         // Check length
@@ -26,31 +49,22 @@ public class ExtractNPM {
             return false;
 
         // Check jurusan code
-        switch (jurusanCode) {
-            case "01":
-            case "02":
-            case "03":
-            case "11":
-            case "12":
-                break;
-            default:
-                return false;
-        }
+        if (getJurusan(npm).equals("invalid"))
+            return false;
 
         // Check age
-        int birthYear = Integer.parseInt(birthDate.substring(4));
+        int birthYear = Integer.parseInt(getBirthDate(npm).substring(6));
         if (entryYear - birthYear < 15)
             return false;
 
         // Check NPM code
         int sum = 0;
-        //Get sum of products
+        // Get sum of products
         for (int i = 0; i < 6; i++) {
             int negativeIndex = npmString.length() - 2 - i;
             sum += Character.getNumericValue(npmString.charAt(i))
                     * Character.getNumericValue(npmString.charAt(negativeIndex));
         }
-
         // Reduce sum of products to one digit
         while (sum >= 10){
             int tempSum = sum;
