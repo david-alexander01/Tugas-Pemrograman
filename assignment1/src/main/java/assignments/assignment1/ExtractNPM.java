@@ -1,23 +1,19 @@
+// This program receives an input of NPM and outputs the data processed
+// from the given NPM else outputs "NPM tidak valid!" if the NPM given is
+// not valid
+
 package assignments.assignment1;
 
 import java.util.Scanner;
 
 public class ExtractNPM {
-    /*
-    You can add other method do help you solve
-    this problem
-    
-    Some method you probably need like
-    - Method to get tahun masuk or else
-    - Method to help you do the validation
-    - and so on
-    */
-    public static int getEntryYear(long npm){
+
+    public static int getEntryYear(long npm) {
         // Returns year of entry in the 21st century
         return 2000 + Integer.parseInt(Long.toString(npm).substring(0, 2));
     }
 
-    public static String getJurusan(long npm){
+    public static String getJurusan(long npm) {
         // Returns string of jurusan else "invalid" if code is invalid.
         String jurusanCode = (npm + "").substring(2, 4);
         return switch (jurusanCode) {
@@ -30,7 +26,7 @@ public class ExtractNPM {
         };
     }
 
-    public static String getBirthDate(long npm){
+    public static String getBirthDate(long npm) {
         // Returns birthday in the format of "dd-mm-yyyy"
         String birthDate = (npm + "").substring(4, 12);
         String date = birthDate.substring(0, 2);
@@ -40,13 +36,15 @@ public class ExtractNPM {
     }
 
     public static boolean validate(long npm) {
+        // Returns true if NPM is valid else false
         String npmString = npm + "";
-        int entryYear = getEntryYear(npm);
-        int validationCode = Integer.parseInt(String.valueOf(npmString.charAt(13)));
-
         // Check length
         if (npmString.length() != 14)
             return false;
+
+        int entryYear = getEntryYear(npm);
+        int validationCode = Integer.parseInt(String.valueOf(npmString.charAt(13)));
+
 
         // Check jurusan code
         if (getJurusan(npm).equals("invalid"))
@@ -66,38 +64,42 @@ public class ExtractNPM {
                     * Character.getNumericValue(npmString.charAt(negativeIndex));
         }
         // Reduce sum of products to one digit
-        while (sum >= 10){
+        while (sum >= 10) {
             int tempSum = sum;
             int digitSum = 0;
             int lastDigit;
-            while (tempSum > 0){
+            while (tempSum > 0) {
                 lastDigit = tempSum % 10;
                 digitSum += lastDigit;
                 tempSum /= 10;
             }
             sum = digitSum;
         }
-
         return validationCode == sum;
     }
 
     public static String extract(long npm) {
-        // TODO: Extract information from NPM, return string with given format
-        return "";
+        // Returns formatted string of extracted information
+        return String.format("""
+                        Tahun masuk: %d
+                        Jurusan: %s
+                        Tanggal Lahir: %s""",
+                getEntryYear(npm), getJurusan(npm), getBirthDate(npm));
     }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        boolean exitFlag = false;
-        while (!exitFlag) {
+        while (true) {
             long npm = input.nextLong();
-            if (npm < 0) {
-                exitFlag = true;
+
+            // Breaks loop if entered NPM is negative
+            if (npm < 0)
                 break;
-            }
 
-            // TODO: Check validate and extract NPM
-
+            if (validate(npm))
+                System.out.println(extract(npm));
+            else
+                System.out.println("NPM tidak valid!");
         }
         input.close();
     }
