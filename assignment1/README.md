@@ -83,7 +83,7 @@ berkas `src\test\java\assignments\assignment1\ExtractNPMTest.java`.
 Kode seperti berikut:
 
 ```java
-assertEquals(ExtractNPM.validate(20022808200017L), true);
+assertEquals(true, ExtractNPM.validate(20022808200017L));
 ```
 
 artinya jika *method* `validate` kamu dipanggil dengan argumen `"20022808200017L"`,

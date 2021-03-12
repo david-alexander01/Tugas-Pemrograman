@@ -9,32 +9,32 @@ public class ExtractNPMTest {
     
     @Test
     public void testValidateCorrectOne() {
-        assertEquals(ExtractNPM.validate(20022808200017L), true);
+        assertEquals(true, ExtractNPM.validate(20022808200017L));
     }
 
     @Test
     public void testValidateCorrectTwo() {
-        assertEquals(ExtractNPM.validate(19011403200038L), true);
+        assertEquals(true, ExtractNPM.validate(19011403200038L));
     }
 
     @Test
     public void testValidateCorrectThree() {
-        assertEquals(ExtractNPM.validate(18010903200033L), true);
+        assertEquals(true, ExtractNPM.validate(18010903200033L));
     }
 
     @Test
     public void testValidateFalseOne() {
-        assertEquals(ExtractNPM.validate(20021907200237L), false);
+        assertEquals(false, ExtractNPM.validate(20021907200237L));
     }
 
     @Test
     public void testValidateFalseTwo() {
-        assertEquals(ExtractNPM.validate(190214032000380L), false);
+        assertEquals(false, ExtractNPM.validate(190214032000380L));
     }
 
     @Test
     public void testValidateFalseThree() {
-        assertEquals(ExtractNPM.validate(20041907200626L), false);
+        assertEquals(false, ExtractNPM.validate(20041907200626L));
     }
     
     @Test
@@ -42,7 +42,7 @@ public class ExtractNPMTest {
         String expected = "Tahun masuk: 2020\n";
         expected += "Jurusan: Sistem Informasi\n";
         expected += "Tanggal Lahir: 28-08-2000";
-        assertEquals(ExtractNPM.extract(20022808200017L), expected);
+        assertEquals(expected, ExtractNPM.extract(20022808200017L));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ExtractNPMTest {
         String expected = "Tahun masuk: 2019\n";
         expected += "Jurusan: Ilmu Komputer\n";
         expected += "Tanggal Lahir: 14-03-2000";
-        assertEquals(ExtractNPM.extract(19011403200038L), expected);
+        assertEquals(expected, ExtractNPM.extract(19011403200038L));
     }
 
     @Test
@@ -58,6 +58,6 @@ public class ExtractNPMTest {
         String expected = "Tahun masuk: 2018\n";
         expected += "Jurusan: Ilmu Komputer\n";
         expected += "Tanggal Lahir: 09-03-2000";
-        assertEquals(ExtractNPM.extract(18010903200033L), expected);
+        assertEquals(expected, ExtractNPM.extract(18010903200033L));
     }
 }
