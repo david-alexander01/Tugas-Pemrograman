@@ -63,6 +63,7 @@ public class ExtractNPM {
             sum += Character.getNumericValue(npmString.charAt(i))
                     * Character.getNumericValue(npmString.charAt(negativeIndex));
         }
+        sum += Character.getNumericValue(npmString.charAt(6));
         // Reduce sum of products to one digit
         while (sum >= 10) {
             int tempSum = sum;
