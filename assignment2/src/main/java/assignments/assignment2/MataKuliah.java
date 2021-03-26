@@ -1,46 +1,51 @@
 package assignments.assignment2;
 
-import java.util.Arrays;
-
 public class MataKuliah {
-    private String kode;
-    private String nama;
-    private int sks;
-    private int kapasitas;
-    private Mahasiswa[] daftarMahasiswa;
+    private final String kode;
+    private final String nama;
+    private final int sks;
+    private final int kapasitas;
+    private final Mahasiswa[] daftarMahasiswa;
 
     public MataKuliah(String kode, String nama, int sks, int kapasitas) {
         // Initialize attributes
         this.kode = kode;
         this.nama = nama;
         this.sks = sks;
-        this.kapasitas = sks;
+        this.kapasitas = kapasitas;
         this.daftarMahasiswa = new Mahasiswa[kapasitas];
     }
 
     // temporary test method
     // TODO: REMOVE THIS
     public static void main(String[] args) {
-        MataKuliah a = new MataKuliah("IK", "POK", 3, 100);
+        MataKuliah a = new MataKuliah("IK", "POK", 3, 3);
         System.out.println("TEST SOUT " + a);
+        System.out.println(a.available());
     }
 
     public void addMahasiswa(Mahasiswa mahasiswa) {
-        // Add new mahasiswa to list, keeps list sorted
-        int key = -Arrays.binarySearch(daftarMahasiswa, mahasiswa) - 1;
-        for (int i = daftarMahasiswa.length; i > key; i--) {
-            daftarMahasiswa[i] = daftarMahasiswa[i - 1];
-        }
-        daftarMahasiswa[key] = mahasiswa;
+        daftarMahasiswa[findEmptyMahasiswa()] = mahasiswa;
     }
 
     public void dropMahasiswa(Mahasiswa mahasiswa) {
-        // Remove mahasiswa from list, keeps list sorted
-        int key = Arrays.binarySearch(daftarMahasiswa, mahasiswa);
-        daftarMahasiswa[key] = null;
-        for (int i = key; i < daftarMahasiswa.length; i++) {
-            daftarMahasiswa[i] = daftarMahasiswa[i + 1];
+        daftarMahasiswa[findMahasiswaIndex(mahasiswa)] = null;
+    }
+
+    private int findEmptyMahasiswa() {
+        for (int i = 0; i < daftarMahasiswa.length; i++) {
+            if (daftarMahasiswa[i] == null)
+                return i;
         }
+        return -1;
+    }
+
+    private int findMahasiswaIndex(Mahasiswa mahasiswa) {
+        for (int i = 0; i < daftarMahasiswa.length; i++) {
+            if (daftarMahasiswa[i] == mahasiswa)
+                return i;
+        }
+        return -1;
     }
 
     public boolean available() {
@@ -58,5 +63,24 @@ public class MataKuliah {
 
     public String getKode() {
         return this.kode;
+    }
+
+    public int getJumlahMahasiswa() {
+        int count = 0;
+        for (Mahasiswa mahasiswa : daftarMahasiswa) {
+            if (mahasiswa != null)
+                count++;
+            else
+                break;
+        }
+        return count;
+    }
+
+    public int getKapasitas() {
+        return kapasitas;
+    }
+
+    public Mahasiswa[] getDaftarMahasiswa() {
+        return daftarMahasiswa;
     }
 }
