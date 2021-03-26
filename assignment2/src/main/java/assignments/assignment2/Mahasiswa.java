@@ -74,7 +74,7 @@ public class Mahasiswa {
 
 
     public void cekIRS() {
-        String[] masalahIRS = new String[10];
+        String[] masalahIRS = new String[20];
         int index = 0;
         for (MataKuliah mataKuliah : this.mataKuliah) {
             if (mataKuliah == null)
