@@ -49,7 +49,6 @@ public class Mahasiswa {
     }
 
     public void addMatkul(MataKuliah mataKuliah) {
-        /* TODO: implementasikan kode Anda di sini */
         if (this.mataKuliah[9] != null)
             System.out.println("[DITOLAK] Maksimal mata kuliah yang diambil hanya 10.");
         else if (this.isTakingMataKuliah(mataKuliah))
@@ -64,7 +63,6 @@ public class Mahasiswa {
     }
 
     public void dropMatkul(MataKuliah mataKuliah) {
-        /* TODO: implementasikan kode Anda di sini */
         if (!this.isTakingMataKuliah(mataKuliah))
             System.out.printf("[DITOLAK] %s belum pernah diambil.", mataKuliah);
         else {
@@ -76,7 +74,6 @@ public class Mahasiswa {
 
 
     public void cekIRS() {
-        /* TODO: implementasikan kode Anda di sini */
         String[] masalahIRS = new String[10];
         int index = 0;
         for (MataKuliah mataKuliah : this.mataKuliah) {
@@ -102,7 +99,6 @@ public class Mahasiswa {
 
 
     public String toString() {
-        /* TODO: implementasikan kode Anda di sini */
         return this.nama;
     }
 

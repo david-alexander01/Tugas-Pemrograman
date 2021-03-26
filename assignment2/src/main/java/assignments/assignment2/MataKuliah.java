@@ -53,7 +53,6 @@ public class MataKuliah {
     }
 
     public String toString() {
-        /* TODO: implementasikan kode Anda di sini */
         return this.nama;
     }
 
