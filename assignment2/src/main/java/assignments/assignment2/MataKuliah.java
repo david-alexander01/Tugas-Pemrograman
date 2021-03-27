@@ -46,7 +46,7 @@ public class MataKuliah {
 
     public boolean available() {
         // Checks if array is full
-        return findEmptyMahasiswa() < 0;
+        return findEmptyMahasiswa() >= 0;
     }
 
     public String toString() {
