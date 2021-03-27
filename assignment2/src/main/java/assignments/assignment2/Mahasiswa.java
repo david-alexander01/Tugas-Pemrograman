@@ -44,7 +44,7 @@ public class Mahasiswa {
 
     public void addMatkul(MataKuliah mataKuliah) {
         // Adds mataKuliah to first available index of mataKuliah array if possible
-        if (findEmptyMataKuliah < 0)
+        if (findEmptyMataKuliah() < 0)
             System.out.println("[DITOLAK] Maksimal mata kuliah yang diambil hanya 10.");
         else if (this.isTakingMataKuliah(mataKuliah))
             System.out.printf("[DITOLAK] %s telah diambil sebelumnya.", mataKuliah);
