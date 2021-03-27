@@ -16,23 +16,8 @@ public class MataKuliah {
         this.daftarMahasiswa = new Mahasiswa[kapasitas];
     }
 
-    // temporary test method
-    // TODO: REMOVE THIS
-    public static void main(String[] args) {
-        MataKuliah a = new MataKuliah("IK", "POK", 3, 3);
-        System.out.println("TEST SOUT " + a);
-        System.out.println(a.available());
-    }
-
-    public void addMahasiswa(Mahasiswa mahasiswa) {
-        daftarMahasiswa[findEmptyMahasiswa()] = mahasiswa;
-    }
-
-    public void dropMahasiswa(Mahasiswa mahasiswa) {
-        daftarMahasiswa[findMahasiswaIndex(mahasiswa)] = null;
-    }
-
     private int findEmptyMahasiswa() {
+        // Find empty index in daftarMahasiswa, returns -1 if full
         for (int i = 0; i < daftarMahasiswa.length; i++) {
             if (daftarMahasiswa[i] == null)
                 return i;
@@ -41,6 +26,7 @@ public class MataKuliah {
     }
 
     private int findMahasiswaIndex(Mahasiswa mahasiswa) {
+        // Find index for a given mahasiswa
         for (int i = 0; i < daftarMahasiswa.length; i++) {
             if (daftarMahasiswa[i] == mahasiswa)
                 return i;
@@ -48,38 +34,54 @@ public class MataKuliah {
         return -1;
     }
 
+    public void addMahasiswa(Mahasiswa mahasiswa) {
+        // Adds mahasiswa to array
+        daftarMahasiswa[findEmptyMahasiswa()] = mahasiswa;
+    }
+
+    public void dropMahasiswa(Mahasiswa mahasiswa) {
+        // Removes mahasiswa from array
+        daftarMahasiswa[findMahasiswaIndex(mahasiswa)] = null;
+    }
+
     public boolean available() {
-        return daftarMahasiswa[kapasitas - 1] == null;
+        // Checks if array is full
+        return findEmptyMahasiswa() < 0;
     }
 
     public String toString() {
+        // Returns name
         return this.nama;
     }
 
     public int getSKS() {
+        // Returns sks
         return this.sks;
     }
 
     public String getKode() {
+        // Returns code
         return this.kode;
     }
 
     public int getJumlahMahasiswa() {
+        // Returns mahasiswa count
         int count = 0;
         for (Mahasiswa mahasiswa : daftarMahasiswa) {
             if (mahasiswa != null)
                 count++;
-            else
-                break;
         }
         return count;
     }
 
     public int getKapasitas() {
+        // Returns capacity
         return kapasitas;
     }
 
     public Mahasiswa[] getDaftarMahasiswa() {
+        // returns daftarMahasiswa array
         return daftarMahasiswa;
     }
+
 }
