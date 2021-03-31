@@ -115,7 +115,7 @@ public class Mahasiswa {
         for (MataKuliah mataKuliah : this.mataKuliah) {
             if (mataKuliah == null)
                 continue;
-            if (!mataKuliah.getKode().equals("CS") || !mataKuliah.getKode().equals(this.jurusan)) {
+            if (!mataKuliah.getKode().equals("CS") && !mataKuliah.getKode().equals(this.jurusan)) {
                 masalahIRS[index] = "Mata kuliah " + mataKuliah + " tidak dapat diambil jurusan " + this.jurusan;
                 index++;
             }
@@ -165,8 +165,8 @@ public class Mahasiswa {
     public String getJurusan() {
         String jurusanCode = (this.npm + "").substring(2, 4);
         return switch (jurusanCode) {
-            case "01" -> "Ilmu Komputer";
-            case "02" -> "Sistem Informasi";
+            case "01" -> "IK";
+            case "02" -> "SI";
             default -> "invalid";
         };
     }
