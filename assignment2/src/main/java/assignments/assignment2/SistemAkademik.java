@@ -18,8 +18,11 @@ public class SistemAkademik {
         program.run();
     }
 
+    /**
+     * @param npm npm of mahasiswa to find.
+     * @return Mahasiswa object.
+     */
     private Mahasiswa getMahasiswa(long npm) {
-        // Returns Mahasiswa object from npm
         for (Mahasiswa element : daftarMahasiswa) {
             if (element.getNPM() == npm)
                 return element;
@@ -27,8 +30,11 @@ public class SistemAkademik {
         return null;
     }
 
+    /**
+     * @param namaMataKuliah mataKuliah name to find.
+     * @return MataKuliah object from name.
+     */
     private MataKuliah getMataKuliah(String namaMataKuliah) {
-        // Return MataKuliah object from name
         for (MataKuliah element : daftarMataKuliah) {
             if (element.toString().equals(namaMataKuliah))
                 return element;
@@ -36,8 +42,10 @@ public class SistemAkademik {
         return null;
     }
 
+    /**
+     * Adds MataKuliah for Mahasiswa.
+     */
     private void addMatkul() {
-        // Adds MataKuliah for Mahasiswa
         System.out.println("\n--------------------------ADD MATKUL--------------------------\n");
 
         System.out.print("Masukkan NPM Mahasiswa yang akan melakukan ADD MATKUL : ");
@@ -58,26 +66,19 @@ public class SistemAkademik {
         System.out.println("\nSilakan cek rekap untuk melihat hasil pengecekan IRS.\n");
     }
 
+    /**
+     * Drops MataKuliah from Mahasiswa.
+     */
     private void dropMatkul() {
-        // Drops MataKuliah from Mahasiswa
         System.out.println("\n--------------------------DROP MATKUL--------------------------\n");
 
         System.out.print("Masukkan NPM Mahasiswa yang akan melakukan DROP MATKUL : ");
         long npm = Long.parseLong(input.nextLine());
         Mahasiswa mahasiswa = getMahasiswa(npm);
-
         assert mahasiswa != null;
-        MataKuliah[] daftarMataKuliah = mahasiswa.getMataKuliah();
-        // Checks if Mahasiswa is currently taking a MataKuliah
-        boolean empty = true;
-        for (MataKuliah element : daftarMataKuliah) {
-            if (element != null) {
-                empty = false;
-                break;
-            }
-        }
 
-        if (!empty) {
+
+        if (mahasiswa.isTakingMataKuliah()) {
             System.out.print("Banyaknya Matkul yang Di-drop: ");
             int banyakMatkul = Integer.parseInt(input.nextLine());
             System.out.println("Masukkan nama matkul yang di-drop:");
@@ -92,8 +93,10 @@ public class SistemAkademik {
             System.out.println("[DITOLAK] Belum ada mata kuliah yang diambil.");
     }
 
+    /**
+     * Prints information about a Mahasiswa based on npm.
+     */
     private void ringkasanMahasiswa() {
-        // Prints information about a Mahasiswa based on npm
         System.out.print("Masukkan npm mahasiswa yang akan ditunjukkan ringkasannya : ");
         long npm = Long.parseLong(input.nextLine());
         Mahasiswa mahasiswa = getMahasiswa(npm);
@@ -105,18 +108,10 @@ public class SistemAkademik {
         System.out.println("Jurusan: " + mahasiswa.getJurusan());
         System.out.println("Daftar Mata Kuliah: ");
 
-        MataKuliah[] daftarMataKuliah = mahasiswa.getMataKuliah();
-        // Checks if Mahasiswa is currently taking a MataKuliah
-        boolean empty = true;
-        for (MataKuliah element : daftarMataKuliah) {
-            if (element != null) {
-                empty = false;
-                break;
-            }
-        }
 
         int count = 1;
-        if (!empty) {
+        MataKuliah[] daftarMataKuliah = mahasiswa.getMataKuliah();
+        if (mahasiswa.isTakingMataKuliah()) {
             for (MataKuliah element : daftarMataKuliah) {
                 if (element != null) {
                     System.out.println(count + ". " + element);
@@ -132,8 +127,10 @@ public class SistemAkademik {
         mahasiswa.cekIRS();
     }
 
+    /**
+     * Prints information about a MataKuliah based on name.
+     */
     private void ringkasanMataKuliah() {
-        // Prints information about a MataKuliah based on name
         System.out.print("Masukkan nama mata kuliah yang akan ditunjukkan ringkasannya : ");
         String namaMataKuliah = input.nextLine();
         MataKuliah mataKuliah = getMataKuliah(namaMataKuliah);
@@ -166,8 +163,10 @@ public class SistemAkademik {
             System.out.println("Belum ada mahasiswa yang mengambil mata kuliah ini.");
     }
 
+    /**
+     * Prints main menu and get user choice.
+     */
     private void daftarMenu() {
-        // Prints main menu and get user choice
         int pilihan;
         boolean exit = false;
         while (!exit) {
@@ -200,8 +199,10 @@ public class SistemAkademik {
         }
     }
 
+    /**
+     * Gets initial information (MataKuliah and Mahasiswa).
+     */
     private void run() {
-        // Gets initial information (MataKuliah and Mahasiswa)
         System.out.println("====================== Sistem Akademik =======================\n");
         System.out.println("Selamat datang di Sistem Akademik Fasilkom!");
 
