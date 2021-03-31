@@ -53,6 +53,20 @@ public class Mahasiswa {
     }
 
     /**
+     * @return true if mataKuliah array is empty else false.
+     */
+    public boolean isTakingMataKuliah(){
+        boolean empty = true;
+        for (MataKuliah element : this.mataKuliah) {
+            if (element != null) {
+                empty = false;
+                break;
+            }
+        }
+        return !empty;
+    }
+
+    /**
      * Adds mataKuliah to first available index of mataKuliah array if possible.
      *
      * @param mataKuliah mataKuliah to add.
