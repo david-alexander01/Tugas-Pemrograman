@@ -7,8 +7,10 @@ public class MataKuliah {
     private final int kapasitas;
     private final Mahasiswa[] daftarMahasiswa;
 
+    /**
+     * Initialize attributes
+     */
     public MataKuliah(String kode, String nama, int sks, int kapasitas) {
-        // Initialize attributes
         this.kode = kode;
         this.nama = nama;
         this.sks = sks;
@@ -16,72 +18,95 @@ public class MataKuliah {
         this.daftarMahasiswa = new Mahasiswa[kapasitas];
     }
 
+    /**
+     * @return empty index in daftarMahasiswa, -1 if full.
+     */
     private int findEmptyMahasiswa() {
-        // Find empty index in daftarMahasiswa, returns -1 if full
-        for (int i = 0; i < daftarMahasiswa.length; i++) {
-            if (daftarMahasiswa[i] == null)
+        for (int i = 0; i < this.daftarMahasiswa.length; i++) {
+            if (this.daftarMahasiswa[i] == null)
                 return i;
         }
         return -1;
     }
 
+    /**
+     * @param mahasiswa mahasiswa to find.
+     * @return index for a given mahasiswa.
+     */
     private int findMahasiswaIndex(Mahasiswa mahasiswa) {
-        // Find index for a given mahasiswa
-        for (int i = 0; i < daftarMahasiswa.length; i++) {
-            if (daftarMahasiswa[i] == mahasiswa)
+        for (int i = 0; i < this.daftarMahasiswa.length; i++) {
+            if (this.daftarMahasiswa[i] == mahasiswa)
                 return i;
         }
         return -1;
     }
 
+    /**
+     * @param mahasiswa mahasiswa to add to array.
+     */
     public void addMahasiswa(Mahasiswa mahasiswa) {
-        // Adds mahasiswa to array
-        daftarMahasiswa[findEmptyMahasiswa()] = mahasiswa;
+        this.daftarMahasiswa[findEmptyMahasiswa()] = mahasiswa;
     }
 
+    /**
+     * @param mahasiswa mahasiswa to remove from array.
+     */
     public void dropMahasiswa(Mahasiswa mahasiswa) {
-        // Removes mahasiswa from array
-        daftarMahasiswa[findMahasiswaIndex(mahasiswa)] = null;
+        this.daftarMahasiswa[findMahasiswaIndex(mahasiswa)] = null;
     }
 
+    /**
+     * @return true if array is full else false.
+     */
     public boolean available() {
-        // Checks if array is full
         return findEmptyMahasiswa() >= 0;
     }
 
+    /**
+     * @return name.
+     */
     public String toString() {
-        // Returns name
         return this.nama;
     }
 
+    /**
+     * @return sks.
+     */
     public int getSKS() {
-        // Returns sks
         return this.sks;
     }
 
+    /**
+     * @return code.
+     */
     public String getKode() {
-        // Returns code
         return this.kode;
     }
 
+    /**
+     * @return mahasiswa count.
+     */
     public int getJumlahMahasiswa() {
-        // Returns mahasiswa count
         int count = 0;
-        for (Mahasiswa mahasiswa : daftarMahasiswa) {
+        for (Mahasiswa mahasiswa : this.daftarMahasiswa) {
             if (mahasiswa != null)
                 count++;
         }
         return count;
     }
 
+    /**
+     * @return capacity.
+     */
     public int getKapasitas() {
-        // Returns capacity
-        return kapasitas;
+        return this.kapasitas;
     }
 
+    /**
+     * @return daftarMahasiswa array.
+     */
     public Mahasiswa[] getDaftarMahasiswa() {
-        // returns daftarMahasiswa array
-        return daftarMahasiswa;
+        return this.daftarMahasiswa;
     }
 
 }

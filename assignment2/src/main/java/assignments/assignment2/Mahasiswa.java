@@ -7,24 +7,31 @@ public class Mahasiswa {
     private final long npm;
     private int totalSKS;
 
+    /**
+     * Initialize attributes
+     */
     public Mahasiswa(String nama, long npm) {
-        // Initialize attributes
         this.nama = nama;
         this.npm = npm;
         this.jurusan = this.getJurusan();
     }
 
+    /**
+     * @return empty index in mataKuliah array, -1 if full.
+     */
     private int findEmptyMataKuliah() {
-        // Find empty index in mataKuliah array, returns -1 if full
-        for (int i = 0; i < mataKuliah.length; i++) {
-            if (mataKuliah[i] == null)
+        for (int i = 0; i < this.mataKuliah.length; i++) {
+            if (this.mataKuliah[i] == null)
                 return i;
         }
         return -1;
     }
 
+    /**
+     * @param mataKuliah mataKuliah to find.
+     * @return index of mataKuliah in array, -1 if not found.
+     */
     private int findMataKuliahIndex(MataKuliah mataKuliah) {
-        // Find index for a given mataKuliah
         for (int i = 0; i < this.mataKuliah.length; i++) {
             if (this.mataKuliah[i] == mataKuliah)
                 return i;
@@ -32,8 +39,11 @@ public class Mahasiswa {
         return -1;
     }
 
+    /**
+     * @param mataKuliah mataKuliah to check.
+     * @return true if mataKuliah in mataKuliah array else false.
+     */
     private boolean isTakingMataKuliah(MataKuliah mataKuliah) {
-        // Returns true if mataKuliah in mataKuliah array else false
         for (MataKuliah element : this.mataKuliah) {
             if (element == mataKuliah) {
                 return true;
@@ -42,46 +52,74 @@ public class Mahasiswa {
         return false;
     }
 
+    /**
+     * @return true if mataKuliah array is empty else false.
+     */
+    public boolean isTakingMataKuliah(){
+        boolean empty = true;
+        for (MataKuliah element : this.mataKuliah) {
+            if (element != null) {
+                empty = false;
+                break;
+            }
+        }
+        return !empty;
+    }
+
+    /**
+     * Adds mataKuliah to first available index of mataKuliah array if possible.
+     *
+     * @param mataKuliah mataKuliah to add.
+     */
     public void addMatkul(MataKuliah mataKuliah) {
-        // Adds mataKuliah to first available index of mataKuliah array if possible
-        if (findEmptyMataKuliah() < 0)
-            System.out.println("[DITOLAK] Maksimal mata kuliah yang diambil hanya 10.");
-        else if (this.isTakingMataKuliah(mataKuliah))
+        if (this.isTakingMataKuliah(mataKuliah))
             System.out.printf("[DITOLAK] %s telah diambil sebelumnya.", mataKuliah);
         else if (!mataKuliah.available())
             System.out.printf("[DITOLAK] %s telah penuh kapasitasnya.", mataKuliah);
+        else if (findEmptyMataKuliah() < 0)
+            System.out.println("[DITOLAK] Maksimal mata kuliah yang diambil hanya 10.");
         else {
             mataKuliah.addMahasiswa(this);
             this.mataKuliah[findEmptyMataKuliah()] = mataKuliah;
-            totalSKS += mataKuliah.getSKS();
+            this.totalSKS += mataKuliah.getSKS();
         }
     }
 
+    /**
+     * Drops mataKuliah if possible.
+     *
+     * @param mataKuliah mataKuliah to drop.
+     */
     public void dropMatkul(MataKuliah mataKuliah) {
-        // Drops mataKuliah if possible
         if (!this.isTakingMataKuliah(mataKuliah))
             System.out.printf("[DITOLAK] %s belum pernah diambil.", mataKuliah);
         else {
             mataKuliah.dropMahasiswa(this);
             this.mataKuliah[findMataKuliahIndex(mataKuliah)] = null;
-            totalSKS -= mataKuliah.getSKS();
+            this.totalSKS -= mataKuliah.getSKS();
         }
     }
 
+    /**
+     * Find and print problems in IRS. Possible problems: SKS > 24, mataKuliah code not according to jurusan.
+     */
     public void cekIRS() {
-        // Find and print problems in IRS. Possible problems: mataKuliah code not according to jurusan, SKS > 24.
         String[] masalahIRS = new String[20];
         int index = 0;
+
+        if (this.totalSKS > 24) {
+            masalahIRS[index] = "SKS yang Anda ambil lebih dari 24";
+            index++;
+        }
+
         for (MataKuliah mataKuliah : this.mataKuliah) {
             if (mataKuliah == null)
                 continue;
-            if (!mataKuliah.getKode().equals("CS") || !mataKuliah.getKode().equals(this.jurusan)) {
+            if (!mataKuliah.getKode().equals("CS") && !mataKuliah.getKode().equals(this.jurusan)) {
                 masalahIRS[index] = "Mata kuliah " + mataKuliah + " tidak dapat diambil jurusan " + this.jurusan;
-                index += 1;
+                index++;
             }
         }
-        if (this.totalSKS > 24)
-            masalahIRS[index] = "SKS yang Anda ambil lebih dari 24";
 
         if (masalahIRS[0] != null) {
             for (String toPrint : masalahIRS) {
@@ -93,32 +131,42 @@ public class Mahasiswa {
             System.out.println("IRS tidak bermasalah.");
     }
 
+    /**
+     * @return name.
+     */
     public String toString() {
-        // Returns name
         return this.nama;
     }
 
+    /**
+     * @return totalSKS.
+     */
     public int getSKS() {
-        // Returns totalSKS
         return this.totalSKS;
     }
 
+    /**
+     * @return npm.
+     */
     public long getNPM() {
-        // Returns npm
-        return npm;
+        return this.npm;
     }
 
+    /**
+     * @return Array of mataKuliah.
+     */
     public MataKuliah[] getMataKuliah() {
-        // Returns array of mataKuliah
-        return mataKuliah;
+        return this.mataKuliah;
     }
 
+    /**
+     * @return String of jurusan else "invalid" if code is invalid.
+     */
     public String getJurusan() {
-        // Returns string of jurusan else "invalid" if code is invalid.
-        String jurusanCode = (npm + "").substring(2, 4);
+        String jurusanCode = (this.npm + "").substring(2, 4);
         return switch (jurusanCode) {
-            case "01" -> "Ilmu Komputer";
-            case "02" -> "Sistem Informasi";
+            case "01" -> "IK";
+            case "02" -> "SI";
             default -> "invalid";
         };
     }
