@@ -7,9 +7,6 @@ public class Mahasiswa {
     private final long npm;
     private int totalSKS;
 
-    /**
-     * Initialize attributes
-     */
     public Mahasiswa(String nama, long npm) {
         this.nama = nama;
         this.npm = npm;
@@ -55,7 +52,7 @@ public class Mahasiswa {
     /**
      * @return true if mataKuliah array is empty else false.
      */
-    public boolean isTakingMataKuliah(){
+    public boolean isTakingMataKuliah() {
         boolean empty = true;
         for (MataKuliah element : this.mataKuliah) {
             if (element != null) {
@@ -138,30 +135,18 @@ public class Mahasiswa {
         return this.nama;
     }
 
-    /**
-     * @return totalSKS.
-     */
     public int getSKS() {
         return this.totalSKS;
     }
 
-    /**
-     * @return npm.
-     */
     public long getNPM() {
         return this.npm;
     }
 
-    /**
-     * @return Array of mataKuliah.
-     */
     public MataKuliah[] getMataKuliah() {
         return this.mataKuliah;
     }
 
-    /**
-     * @return String of jurusan else "invalid" if code is invalid.
-     */
     public String getJurusan() {
         String jurusanCode = (this.npm + "").substring(2, 4);
         return switch (jurusanCode) {

@@ -7,9 +7,6 @@ public class MataKuliah {
     private final int kapasitas;
     private final Mahasiswa[] daftarMahasiswa;
 
-    /**
-     * Initialize attributes
-     */
     public MataKuliah(String kode, String nama, int sks, int kapasitas) {
         this.kode = kode;
         this.nama = nama;
@@ -41,23 +38,14 @@ public class MataKuliah {
         return -1;
     }
 
-    /**
-     * @param mahasiswa mahasiswa to add to array.
-     */
     public void addMahasiswa(Mahasiswa mahasiswa) {
         this.daftarMahasiswa[findEmptyMahasiswa()] = mahasiswa;
     }
 
-    /**
-     * @param mahasiswa mahasiswa to remove from array.
-     */
     public void dropMahasiswa(Mahasiswa mahasiswa) {
         this.daftarMahasiswa[findMahasiswaIndex(mahasiswa)] = null;
     }
 
-    /**
-     * @return true if array is full else false.
-     */
     public boolean available() {
         return findEmptyMahasiswa() >= 0;
     }
@@ -69,23 +57,14 @@ public class MataKuliah {
         return this.nama;
     }
 
-    /**
-     * @return sks.
-     */
     public int getSKS() {
         return this.sks;
     }
 
-    /**
-     * @return code.
-     */
     public String getKode() {
         return this.kode;
     }
 
-    /**
-     * @return mahasiswa count.
-     */
     public int getJumlahMahasiswa() {
         int count = 0;
         for (Mahasiswa mahasiswa : this.daftarMahasiswa) {
@@ -95,16 +74,10 @@ public class MataKuliah {
         return count;
     }
 
-    /**
-     * @return capacity.
-     */
     public int getKapasitas() {
         return this.kapasitas;
     }
 
-    /**
-     * @return daftarMahasiswa array.
-     */
     public Mahasiswa[] getDaftarMahasiswa() {
         return this.daftarMahasiswa;
     }
