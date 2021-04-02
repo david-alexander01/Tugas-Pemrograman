@@ -89,7 +89,7 @@ public class Mahasiswa {
      */
     public void dropMatkul(MataKuliah mataKuliah) {
         if (!this.isTakingMataKuliah(mataKuliah))
-            System.out.printf("[DITOLAK] %s belum pernah diambil.", mataKuliah);
+            System.out.printf("[DITOLAK] %s belum pernah diambil", mataKuliah);
         else {
             mataKuliah.dropMahasiswa(this);
             this.mataKuliah[findMataKuliahIndex(mataKuliah)] = null;
@@ -112,16 +112,18 @@ public class Mahasiswa {
         for (MataKuliah mataKuliah : this.mataKuliah) {
             if (mataKuliah == null)
                 continue;
-            if (!mataKuliah.getKode().equals("CS") && !mataKuliah.getKode().equals(this.jurusan)) {
+            if (!mataKuliah.getKode().equals("CS") && !mataKuliah.getJurusan().equals(this.jurusan)) {
                 masalahIRS[index] = "Mata kuliah " + mataKuliah + " tidak dapat diambil jurusan " + this.jurusan;
                 index++;
             }
         }
 
+        int count = 1;
         if (masalahIRS[0] != null) {
             for (String toPrint : masalahIRS) {
                 if (toPrint != null) {
-                    System.out.println(toPrint);
+                    System.out.println(count + ". " + toPrint);
+                    count++;
                 }
             }
         } else
@@ -150,8 +152,8 @@ public class Mahasiswa {
     public String getJurusan() {
         String jurusanCode = (this.npm + "").substring(2, 4);
         return switch (jurusanCode) {
-            case "01" -> "IK";
-            case "02" -> "SI";
+            case "01" -> "Ilmu Komputer";
+            case "02" -> "Sistem Informasi";
             default -> "invalid";
         };
     }

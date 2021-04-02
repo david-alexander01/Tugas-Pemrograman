@@ -65,6 +65,13 @@ public class MataKuliah {
         return this.kode;
     }
 
+    public String getJurusan() {
+        return switch(this.kode){
+            case "IK" -> "Ilmu Komputer";
+            case "SI" -> "Sistem Informasi";
+            default -> "Computer Science";
+        };
+    }
     public int getJumlahMahasiswa() {
         int count = 0;
         for (Mahasiswa mahasiswa : this.daftarMahasiswa) {

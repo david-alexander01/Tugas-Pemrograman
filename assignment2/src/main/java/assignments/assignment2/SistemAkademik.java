@@ -119,7 +119,7 @@ public class SistemAkademik {
                 }
             }
         } else
-            System.out.println("Belum ada mata kuliah yang diambil.");
+            System.out.println("Belum ada mata kuliah yang diambil");
 
         System.out.println("Total SKS: " + mahasiswa.getSKS());
 
