@@ -215,13 +215,7 @@ public class SistemAkademik {
             String[] dataMatkul = input.nextLine().split(" ", 4);
             int sks = Integer.parseInt(dataMatkul[2]);
             int kapasitas = Integer.parseInt(dataMatkul[3]);
-            MataKuliah newMataKuliah = new MataKuliah(dataMatkul[0], dataMatkul[1], sks, kapasitas);
-            for (int j = 0; j < daftarMataKuliah.length; j++) {
-                if (daftarMataKuliah[j] == null) {
-                    daftarMataKuliah[j] = newMataKuliah;
-                    break;
-                }
-            }
+            daftarMataKuliah[i] = new MataKuliah(dataMatkul[0], dataMatkul[1], sks, kapasitas);
         }
 
         System.out.print("Banyaknya Mahasiswa di Fasilkom: ");
@@ -232,13 +226,7 @@ public class SistemAkademik {
         for (int i = 0; i < banyakMahasiswa; i++) {
             String[] dataMahasiswa = input.nextLine().split(" ", 2);
             long npm = Long.parseLong(dataMahasiswa[1]);
-            Mahasiswa newMahasiswa = new Mahasiswa(dataMahasiswa[0], npm);
-            for (int j = 0; j < daftarMahasiswa.length; j++) {
-                if (daftarMahasiswa[j] == null) {
-                    daftarMahasiswa[j] = newMahasiswa;
-                    break;
-                }
-            }
+            daftarMahasiswa[i] = new Mahasiswa(dataMahasiswa[0], npm);
         }
         daftarMenu();
         input.close();
