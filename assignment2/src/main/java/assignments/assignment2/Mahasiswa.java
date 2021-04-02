@@ -89,7 +89,7 @@ public class Mahasiswa {
      */
     public void dropMatkul(MataKuliah mataKuliah) {
         if (!this.isTakingMataKuliah(mataKuliah))
-            System.out.printf("[DITOLAK] %s belum pernah diambil", mataKuliah);
+            System.out.printf("[DITOLAK] %s belum pernah diambil.", mataKuliah);
         else {
             mataKuliah.dropMahasiswa(this);
             this.mataKuliah[findMataKuliahIndex(mataKuliah)] = null;
