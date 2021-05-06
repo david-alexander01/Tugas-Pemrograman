@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 class Mahasiswa extends ElemenFasilkom {
 
-    /* TODO: Silahkan menambahkan visibility pada setiap method dan variabel apabila diperlukan */
-
     private ArrayList<MataKuliah> daftarMataKuliah = new ArrayList<>();
     private long npm;
     private String tanggalLahir;
@@ -18,6 +16,12 @@ class Mahasiswa extends ElemenFasilkom {
         this.tanggalLahir = extractTanggalLahir(npm);
     }
 
+    /**
+     * Adds MataKuliah object to daftarMataKuliah. Also calls the addMahasiswa
+     * method from MataKuliah.
+     *
+     * @param mataKuliah MataKuliah: MataKuliah object to add.
+     */
     void addMatkul(MataKuliah mataKuliah) {
         if (daftarMataKuliah.contains(mataKuliah)) {
             System.out.printf("[DITOLAK] %s telah diambil sebelumnya\n", mataKuliah);
@@ -31,6 +35,12 @@ class Mahasiswa extends ElemenFasilkom {
         }
     }
 
+    /**
+     * Removes MataKuliah object from daftarMataKuliah. Also calls the dropMahasiswa
+     * method from MataKuliah.
+     *
+     * @param mataKuliah MataKuliah: MataKuliah object to drop.
+     */
     void dropMatkul(MataKuliah mataKuliah) {
         if (daftarMataKuliah.contains(mataKuliah)) {
             daftarMataKuliah.remove(mataKuliah);
@@ -42,7 +52,13 @@ class Mahasiswa extends ElemenFasilkom {
         }
     }
 
-    public String extractJurusan(long npm) {
+    /**
+     * Gets jurusan from npm.
+     *
+     * @param npm long: npm of Mahasiswa to extractJurusan.
+     * @return String: jurusan.
+     */
+    String extractJurusan(long npm) {
         String jurusanCode = (npm + "").substring(2, 4);
         return switch (jurusanCode) {
             case "01" -> "Ilmu Komputer";
@@ -51,7 +67,13 @@ class Mahasiswa extends ElemenFasilkom {
         };
     }
 
-    public String extractTanggalLahir(long npm) {
+    /**
+     * Get birth date from npm.
+     *
+     * @param npm long: npm of Mahasiswa to extractTanggalLahir.
+     * @return String: birth date with d(d)-m(m)-yyyy format.
+     */
+    String extractTanggalLahir(long npm) {
         String birthDate = (npm + "").substring(4, 12);
         String date = birthDate.substring(0, 2).replaceFirst("^0", "");
         String month = birthDate.substring(2, 4).replaceFirst("^0", "");
@@ -59,7 +81,10 @@ class Mahasiswa extends ElemenFasilkom {
         return String.format("%s-%s-%s", date, month, year);
     }
 
-    public void ringkasan() {
+    /**
+     * Print attributes of this instance.
+     */
+    void ringkasan() {
         System.out.printf("""
                         Nama: %s
                         Tanggal lahir: %s
@@ -78,7 +103,7 @@ class Mahasiswa extends ElemenFasilkom {
         }
     }
 
-    public ArrayList<MataKuliah> getDaftarMataKuliah() {
+    ArrayList<MataKuliah> getDaftarMataKuliah() {
         return daftarMataKuliah;
     }
 }
