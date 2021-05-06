@@ -66,6 +66,8 @@ public class Main {
         assert elemen != null;
         if (elemen instanceof ElemenKantin){
             ((ElemenKantin) elemen).setMakanan(namaMakanan, harga);
+        } else{
+            System.out.printf("[DITOLAK] %s bukan merupakan elemen kantin\n", objek);
         }
     }
 
@@ -84,6 +86,7 @@ public class Main {
     static void createMatkul(String nama, int kapasitas) {
         daftarMataKuliah.add(new MataKuliah(nama, kapasitas));
         totalMataKuliah++;
+        System.out.printf("%s berhasil ditambahkan dengan kapasitas %d\n", nama, kapasitas);
     }
 
     static void addMatkul(String objek, String namaMataKuliah) {
@@ -91,7 +94,7 @@ public class Main {
         if (elemen instanceof Mahasiswa) {
             ((Mahasiswa) elemen).addMatkul(getMataKuliah(namaMataKuliah));
         } else {
-            System.out.println("[DITOLAK] Hanya mahasiswa dapat menambahkan matkul");
+            System.out.println("[DITOLAK] Hanya mahasiswa yang dapat menambahkan matkul");
         }
     }
 
@@ -100,7 +103,7 @@ public class Main {
         if (elemen instanceof Mahasiswa) {
             ((Mahasiswa) elemen).dropMatkul(getMataKuliah(namaMataKuliah));
         } else {
-            System.out.println("[DITOLAK] Hanya mahasiswa dapat drop matkul");
+            System.out.println("[DITOLAK] Hanya mahasiswa yang dapat drop matkul");
         }
     }
 
@@ -109,7 +112,7 @@ public class Main {
         if (elemen instanceof Dosen) {
             ((Dosen) elemen).mengajarMataKuliah(getMataKuliah(namaMataKuliah));
         } else {
-            System.out.println("[DITOLAK] Hanya dosen dapat mengajar matkul");
+            System.out.println("[DITOLAK] Hanya dosen yang dapat mengajar matkul");
         }
     }
 
@@ -118,7 +121,7 @@ public class Main {
         if (elemen instanceof Dosen) {
             ((Dosen) elemen).dropMataKuliah();
         } else {
-            System.out.println("[DITOLAK] Hanya dosen dapat berhenti mengajar");
+            System.out.println("[DITOLAK] Hanya dosen yang dapat berhenti mengajar");
         }
     }
 

@@ -40,7 +40,7 @@ class MataKuliah {
         return nama;
     }
 
-    public boolean available(){return daftarMahasiswa.size() <= kapasitas;}
+    public boolean available(){return daftarMahasiswa.size() < kapasitas;}
 
     public void ringkasan() {
         System.out.printf("""
@@ -49,7 +49,7 @@ class MataKuliah {
                 Kapasitas: %d
                 Dosen pengajar: %s
                 Daftar mahasiswa yang mengambil mata kuliah ini:
-                """, this, daftarMahasiswa.size(), kapasitas, dosen);
+                """, this, daftarMahasiswa.size(), kapasitas, (dosen != null) ? dosen : "Belum ada");
         if (daftarMahasiswa.isEmpty()){
             System.out.println("Belum ada mahasiswa yang mengambil mata kuliah ini");
         } else{

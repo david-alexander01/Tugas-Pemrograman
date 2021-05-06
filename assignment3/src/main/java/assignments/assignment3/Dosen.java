@@ -31,7 +31,7 @@ class Dosen extends ElemenFasilkom {
             mataKuliah.dropDosen();
             mataKuliah = null;
         } else{
-            System.out.printf("[DITOLAK] %s sedang tidak mengajar mata kuliah apapun\n",
+            System.out.printf("%s sedang tidak mengajar mata kuliah apapun\n",
                     this);
         }
     }
