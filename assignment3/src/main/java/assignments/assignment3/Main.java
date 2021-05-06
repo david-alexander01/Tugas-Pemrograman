@@ -270,7 +270,6 @@ public class Main {
                         }
                     }
                 }
-
             }
 
             elemen.setFriendship(elemen.getFriendship() + tambahNilaiFriendship);
@@ -315,41 +314,27 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        String in = input.nextLine();
 
-        while (true) {
-            String in = input.nextLine();
-            if (in.split(" ")[0].equals("ADD_MAHASISWA")) {
-                addMahasiswa(in.split(" ")[1], Long.parseLong(in.split(" ")[2]));
-            } else if (in.split(" ")[0].equals("ADD_DOSEN")) {
-                addDosen(in.split(" ")[1]);
-            } else if (in.split(" ")[0].equals("ADD_ELEMEN_KANTIN")) {
-                addElemenKantin(in.split(" ")[1]);
-            } else if (in.split(" ")[0].equals("MENYAPA")) {
-                menyapa(in.split(" ")[1], in.split(" ")[2]);
-            } else if (in.split(" ")[0].equals("ADD_MAKANAN")) {
-                addMakanan(in.split(" ")[1], in.split(" ")[2], Long.parseLong(in.split(" ")[3]));
-            } else if (in.split(" ")[0].equals("MEMBELI_MAKANAN")) {
-                membeliMakanan(in.split(" ")[1], in.split(" ")[2], in.split(" ")[3]);
-            } else if (in.split(" ")[0].equals("CREATE_MATKUL")) {
-                createMatkul(in.split(" ")[1], Integer.parseInt(in.split(" ")[2]));
-            } else if (in.split(" ")[0].equals("ADD_MATKUL")) {
-                addMatkul(in.split(" ")[1], in.split(" ")[2]);
-            } else if (in.split(" ")[0].equals("DROP_MATKUL")) {
-                dropMatkul(in.split(" ")[1], in.split(" ")[2]);
-            } else if (in.split(" ")[0].equals("MENGAJAR_MATKUL")) {
-                mengajarMatkul(in.split(" ")[1], in.split(" ")[2]);
-            } else if (in.split(" ")[0].equals("BERHENTI_MENGAJAR")) {
-                berhentiMengajar(in.split(" ")[1]);
-            } else if (in.split(" ")[0].equals("RINGKASAN_MAHASISWA")) {
-                ringkasanMahasiswa(in.split(" ")[1]);
-            } else if (in.split(" ")[0].equals("RINGKASAN_MATKUL")) {
-                ringkasanMataKuliah(in.split(" ")[1]);
-            } else if (in.split(" ")[0].equals("NEXT_DAY")) {
-                nextDay();
-            } else if (in.split(" ")[0].equals("PROGRAM_END")) {
-                programEnd();
-                break;
+        while (!in.equals("PROGRAM_END")) {
+            switch (in.split(" ")[0]) {
+                case "ADD_MAHASISWA" -> addMahasiswa(in.split(" ")[1], Long.parseLong(in.split(" ")[2]));
+                case "ADD_DOSEN" -> addDosen(in.split(" ")[1]);
+                case "ADD_ELEMEN_KANTIN" -> addElemenKantin(in.split(" ")[1]);
+                case "MENYAPA" -> menyapa(in.split(" ")[1], in.split(" ")[2]);
+                case "ADD_MAKANAN" -> addMakanan(in.split(" ")[1], in.split(" ")[2], Long.parseLong(in.split(" ")[3]));
+                case "MEMBELI_MAKANAN" -> membeliMakanan(in.split(" ")[1], in.split(" ")[2], in.split(" ")[3]);
+                case "CREATE_MATKUL" -> createMatkul(in.split(" ")[1], Integer.parseInt(in.split(" ")[2]));
+                case "ADD_MATKUL" -> addMatkul(in.split(" ")[1], in.split(" ")[2]);
+                case "DROP_MATKUL" -> dropMatkul(in.split(" ")[1], in.split(" ")[2]);
+                case "MENGAJAR_MATKUL" -> mengajarMatkul(in.split(" ")[1], in.split(" ")[2]);
+                case "BERHENTI_MENGAJAR" -> berhentiMengajar(in.split(" ")[1]);
+                case "RINGKASAN_MAHASISWA" -> ringkasanMahasiswa(in.split(" ")[1]);
+                case "RINGKASAN_MATKUL" -> ringkasanMataKuliah(in.split(" ")[1]);
+                case "NEXT_DAY" -> nextDay();
+                case "PROGRAM_END" -> programEnd();
             }
+            in = input.nextLine();
         }
         input.close();
     }
