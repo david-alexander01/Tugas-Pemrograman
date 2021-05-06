@@ -332,10 +332,10 @@ public class Main {
                 case "RINGKASAN_MAHASISWA" -> ringkasanMahasiswa(in.split(" ")[1]);
                 case "RINGKASAN_MATKUL" -> ringkasanMataKuliah(in.split(" ")[1]);
                 case "NEXT_DAY" -> nextDay();
-                case "PROGRAM_END" -> programEnd();
             }
             in = input.nextLine();
         }
+        programEnd();
         input.close();
     }
 }
