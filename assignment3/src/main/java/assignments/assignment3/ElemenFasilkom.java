@@ -1,31 +1,76 @@
 package assignments.assignment3;
 
-abstract class ElemenFasilkom {
-    
+import java.util.ArrayList;
+
+abstract class ElemenFasilkom{
     /* TODO: Silahkan menambahkan visibility pada setiap method dan variabel apabila diperlukan */
 
-    String tipe;
-    
-    String nama;
-
-    int friendship;
-
-    ElemenFasilkom[] telahMenyapa = new ElemenFasilkom[100];
+    private String nama;
+    private int friendship;
+    private ArrayList<ElemenFasilkom> telahMenyapa = new ArrayList<>();
+    private ArrayList<Makanan> beliMakanan = new ArrayList<>();
 
     void menyapa(ElemenFasilkom elemenFasilkom) {
-        /* TODO: implementasikan kode Anda di sini */
+        if (telahMenyapa.contains(elemenFasilkom)) {
+            System.out.printf("[DITOLAK] %s telah menyapa %s hari ini\n",
+                    this, elemenFasilkom);
+        } else {
+            telahMenyapa.add(elemenFasilkom);
+            elemenFasilkom.telahMenyapa.add(this);
+            System.out.printf("%s menyapa dengan %s\n",
+                    this, elemenFasilkom);
+        }
     }
 
     void resetMenyapa() {
-        /* TODO: implementasikan kode Anda di sini */
+        telahMenyapa.clear();
     }
 
-    void membeliMakanan(ElemenFasilkom pembeli, ElemenFasilkom penjual, String namaMakanan) {
-        /* TODO: implementasikan kode Anda di sini */
+    void resetBeliMakanan(){beliMakanan.clear();}
+
+    static void membeliMakanan(ElemenFasilkom pembeli, ElemenKantin penjual, String namaMakanan) {
+        Makanan makanan = penjual.getMakanan(namaMakanan);
+        if (makanan != null) {
+            pembeli.beliMakanan.add(makanan);
+            System.out.printf("%s berhasil membeli %s seharga %s\n",
+                    pembeli, namaMakanan, makanan.getHarga());
+        } else {
+            System.out.printf("[DITOLAK] %s tidak menjual %s\n",
+                    penjual, namaMakanan);
+        }
+
     }
 
-    String toString() {
-        /* TODO: implementasikan kode Anda di sini */
-        return "";
+    public ArrayList<Makanan> getBeliMakanan() {
+        return beliMakanan;
+    }
+
+    public int getJumlahMenyapa(){
+        return telahMenyapa.size();
+    }
+
+    public ArrayList<ElemenFasilkom> getTelahMenyapa() {
+        return telahMenyapa;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public int getFriendship() {
+        return friendship;
+    }
+
+    public void setFriendship(int friendship) {
+        this.friendship = (friendship > 100) ? 100 :
+                Math.max(friendship, 0);
+    }
+
+    public String toString() {
+        return nama;
     }
 }

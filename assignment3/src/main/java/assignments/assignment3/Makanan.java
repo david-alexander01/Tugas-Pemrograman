@@ -4,16 +4,21 @@ class Makanan {
 
     /* TODO: Silahkan menambahkan visibility pada setiap method dan variabel apabila diperlukan */
 
-    String nama;
-
-    long harga;
+    private String nama;
+    private long harga;
 
     Makanan(String nama, long harga) {
-        /* TODO: implementasikan kode Anda di sini */
+        this.nama = nama;
+        this.harga = harga;
     }
 
-    String toString() {
-        /* TODO: implementasikan kode Anda di sini */
-        return "";
+    long getHarga(){
+        return harga;
     }
+
+    @Override
+    public String toString() {
+        return nama;
+    }
+
 }
