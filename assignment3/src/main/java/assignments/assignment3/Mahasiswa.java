@@ -26,7 +26,7 @@ class Mahasiswa extends ElemenFasilkom {
         if (daftarMataKuliah.contains(mataKuliah)) {
             System.out.printf("[DITOLAK] %s telah diambil sebelumnya\n", mataKuliah);
         } else if (!mataKuliah.available()) {
-            System.out.printf("[DITOLAK] %s telah penuh kapasitasnya.\n", mataKuliah);
+            System.out.printf("[DITOLAK] %s telah penuh kapasitasnya\n", mataKuliah);
         } else {
             daftarMataKuliah.add(mataKuliah);
             mataKuliah.addMahasiswa(this);
