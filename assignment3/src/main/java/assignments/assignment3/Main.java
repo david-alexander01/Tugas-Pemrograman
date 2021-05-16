@@ -238,7 +238,7 @@ public class Main {
      * ElemenKantin.
      */
     static void nextDay() {
-        double setengahElemen = (totalElemenFasilkom / 2.0) - 1;    // Not including one's self
+        double setengahElemen = (totalElemenFasilkom - 1) / 2.0;    // Not including one's self
         for (ElemenFasilkom elemen : daftarElemenFasilkom) {
             int tambahNilaiFriendship = 0;
 
