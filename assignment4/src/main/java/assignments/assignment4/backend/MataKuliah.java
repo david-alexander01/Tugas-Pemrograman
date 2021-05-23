@@ -1,6 +1,6 @@
 package assignments.assignment4.backend;
 
-public class MataKuliah {
+public class MataKuliah implements Comparable<MataKuliah>{
     private String kode;
     private String nama;
     private int sks;
@@ -67,5 +67,13 @@ public class MataKuliah {
             }
         }
         return indeks;
+    }
+
+    @Override
+    public int compareTo(MataKuliah o) {
+        if (this.getNama().compareTo(o.getNama()) < 1){
+            return -1;
+        }
+        return 1;
     }
 }

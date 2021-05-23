@@ -1,6 +1,6 @@
 package assignments.assignment4.backend;
 
-public class Mahasiswa {
+public class Mahasiswa implements Comparable<Mahasiswa>{
     private MataKuliah[] mataKuliah = new MataKuliah[10];
     private String[] masalahIRS;
     private int banyakMatkul = 0;
@@ -140,4 +140,11 @@ public class Mahasiswa {
 
     }
 
+    @Override
+    public int compareTo(Mahasiswa o) {
+        if (this.getNpm() < o.getNpm()){
+            return -1;
+        }
+        return 1;
+    }
 }
