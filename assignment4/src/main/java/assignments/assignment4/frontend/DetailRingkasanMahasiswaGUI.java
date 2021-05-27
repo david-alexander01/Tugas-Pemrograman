@@ -58,13 +58,14 @@ public class DetailRingkasanMahasiswaGUI {
         addComponent(new JLabel(String.format("SKS: %d", mahasiswa.getTotalSKS())), panel);
         addComponent(new JLabel("Hasil Pengecekan IRS"), panel);
         String daftarMasalahIRS = "";
+        mahasiswa.cekIRS();
         if (mahasiswa.getBanyakMasalahIRS() == 0) {
             daftarMasalahIRS = "IRS tidak bermasalah.";
         } else {
-            mahasiswa.cekIRS();
             String[] masalahIRS = mahasiswa.getMasalahIRS();
             for (int i = 0; i < masalahIRS.length; i++) {
-                daftarMasalahIRS += "<html>" + (i + 1) + ". " + masalahIRS[i] + "<br>" + "<html>";
+                if (masalahIRS[i] != null)
+                    daftarMasalahIRS += "<html>" + (i + 1) + ". " + masalahIRS[i] + "<br>" + "<html>";
             }
         }
 
