@@ -1,7 +1,6 @@
 package assignments.assignment4a;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,7 +13,6 @@ class AppFrame extends JFrame{
     public AppFrame(){
         super("Infix -> Postfix Evaluator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 
         add(new AppPanel());
         pack();

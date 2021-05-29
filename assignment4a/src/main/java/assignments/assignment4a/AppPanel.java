@@ -15,7 +15,6 @@ class AppPanel extends JPanel {
         setBackground(new Color(192, 192, 192));
 
         initComponents();
-
     }
 
     private void initComponents() {
@@ -26,12 +25,17 @@ class AppPanel extends JPanel {
         infixExpressionTextField.addActionListener(e ->{
             String expression = infixExpressionTextField.getText();
             Calculate.start(expression);
-            postfixExpressionLabel.setText(Calculate.getPostfixExpression().toString());
+            postfixExpressionLabel.setText(Calculate.getPostfixExpression());
             resultLabel.setText(Calculate.getResult());
+            errorMessagesLabel.setText(Calculate.getErrorMessages().toString());
         });
         add(infixExpressionTextField);
 
         add(new JLabel("Postfix expression:"));
+
+        // postfixExpressionLabel, resultLabel, and errorMessagesLabel
+        // must be saved to a variable so that the text can be changed
+        // later
 
         postfixExpressionLabel = new JLabel();
         add(postfixExpressionLabel);

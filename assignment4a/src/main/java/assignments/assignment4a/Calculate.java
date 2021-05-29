@@ -1,35 +1,62 @@
 package assignments.assignment4a;
 
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Calculate {
-    private static final List<String> OPERATORS = Arrays.asList("+", "-", "*", "/", "^", "(", ")");
-    private static ArrayList<String> tokenList = new ArrayList<>();
-    private static Stack<String> stack = new Stack<>();
+    private static final List<String> OPERATORS = Arrays
+            .asList("+", "-", "*", "/", "^", "(", ")");
+    private static ArrayList<String> tokenList;
+    private static Stack<String> stack;
     private static String result;
     private static ArrayList<String> postfixExpression;
+    private static ArrayList<String> errorMessages;
 
     public static void start(String input) {
-        tokenList.clear();
+        tokenList = new ArrayList<>();
+        errorMessages = new ArrayList<>();
+        stack = new Stack<>();
+        postfixExpression = new ArrayList<>();
         System.out.println("input: " + input);
         StringTokenizer tokens = new StringTokenizer(input, "+-*/^() ", true);
-        System.out.println("tokens: " + tokens);
         while (tokens.hasMoreTokens())
             tokenList.add(tokens.nextToken());
         tokenList.removeIf(s -> s.equals(" ")); // remove all spaces
+
         postfixExpression = convertToPostfix(tokenList);
-        result = evaluatePostfixExpression(postfixExpression);
 
+        if (validateTokens()) {
+            result = evaluatePostfixExpression(postfixExpression);
+            if (!stack.isEmpty()) {
+                errorMessages.add("Missing operator");
+                System.out.println("MISSING OPERATOR HERE");
+            }
+        } else {
+            evaluatePostfixExpression(postfixExpression);
+            result = "N/A";
+        }
     }
 
-    public static String getResult(){
-        return result;
+    private static boolean validateTokens() {
+        // check if tokenList has invalid inputs
+        for (String token : tokenList) {
+            if (!OPERATORS.contains(token) && !isNumeric(token)) {
+                errorMessages.add("Parse Error");
+                System.out.println("PARSE ERROR");
+                break;
+            }
+        }
+
+        return errorMessages.isEmpty();
     }
 
-    public static ArrayList<String> getPostfixExpression() {
-        return postfixExpression;
+    private static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private static String evaluatePostfixExpression(ArrayList<String> tokenList) {
@@ -43,14 +70,24 @@ public class Calculate {
             } else if (OPERATORS.contains(element)) {
                 // if an operator is encountered, pop 2 items from the stack, then push
                 // the result back to the stack
-                int operand1 = Integer.parseInt(stack.pop());
-                int operand2 = Integer.parseInt(stack.pop());
-                switch (element){
-                    case "+" -> stack.push((operand2 + operand1) + "");
-                    case "-" -> stack.push((operand2 - operand1) + "");
-                    case "*" -> stack.push((operand2 * operand1) + "");
-                    case "/" -> stack.push((operand2 / operand1) + "");
-                    case "^" -> stack.push((int)Math.pow(operand2, operand1) + "");
+                try {
+                    int operand1 = Integer.parseInt(stack.pop());
+                    int operand2 = Integer.parseInt(stack.pop());
+                    switch (element) {
+                        case "+" -> stack.push((operand2 + operand1) + "");
+                        case "-" -> stack.push((operand2 - operand1) + "");
+                        case "*" -> stack.push((operand2 * operand1) + "");
+                        case "/" -> stack.push((operand2 / operand1) + "");
+                        case "^" -> stack.push((int) Math.pow(operand2, operand1) + "");
+                    }
+                } catch (EmptyStackException | NumberFormatException e) {
+                    errorMessages.add("Missing operand");
+                    System.out.println("MISSING OPERAND");
+                    return "N/A";
+                } catch (ArithmeticException e) {
+                    errorMessages.add("Division by Zero");
+                    System.out.println("DIVISION BY ZERO");
+                    return "N/A";
                 }
             }
 
@@ -62,6 +99,9 @@ public class Calculate {
         ArrayList<String> temp = new ArrayList<>();
 
         for (String element : arr) {
+            System.out.println("stack: " + stack);
+            System.out.println(temp);
+            System.out.println();
             if (!OPERATORS.contains(element)) {
                 // if element is an operand, immediately output
                 temp.add(element);
@@ -70,10 +110,15 @@ public class Calculate {
             } else if (element.equals(")")) {
                 // if element is a closed parenthesis, pop stack symbols until an open
                 // parenthesis appears
-                while (!stack.peek().equals("(")) {
-                    temp.add(stack.pop());
+                try {
+                    while (!stack.peek().equals("(")) {
+                        temp.add(stack.pop());
+                    }
+                    stack.pop();
+                } catch (EmptyStackException e) {
+                    errorMessages.add("Missing open parenthesis");
+                    System.out.println("MISSING OPEN PARENTHESIS");
                 }
-                stack.pop();
 
             } else {
                 // if element is an operator, pop all stack symbols until a symbol of lower
@@ -82,18 +127,16 @@ public class Calculate {
                 while (true) {
                     if (stack.isEmpty())
                         break;
-                    else if (precedenceStack(element) < precedenceStack(stack.peek()))
+                    else if (precedence(element) < precedence(stack.peek()))
                         break;
-                    else if ((precedenceStack(element) == precedenceStack(stack.peek()))
+                    else if ((precedence(element) == precedence(stack.peek()))
                             && !isRightAssociative(stack.peek())) {
                         break;
                     } else
                         temp.add(stack.pop());
                 }
                 stack.push(element);
-
             }
-
         }
 
         while (!stack.isEmpty())
@@ -102,17 +145,7 @@ public class Calculate {
         return temp;
     }
 
-
-    private static int precedence(char c) {
-        return switch (c) {
-            case '(' -> 1;
-            case '^' -> 2;
-            case '*', '/' -> 3;
-            default -> 4;
-        };
-    }
-
-    private static int precedenceStack(String c) {
+    private static int precedence(String c) {
         return switch (c) {
             case "^" -> 2;
             case "*", "/" -> 3;
@@ -122,13 +155,30 @@ public class Calculate {
 
     private static boolean isRightAssociative(String c) {
         return switch (c) {
-            case "-", "/" -> true;
+            case "*", "-", "/" -> true;
             default -> false;
         };
     }
 
+    public static ArrayList<String> getErrorMessages() {
+        return errorMessages;
+    }
+
+    public static String getResult() {
+        return result;
+    }
+
+    public static String getPostfixExpression() {
+        StringBuilder s = new StringBuilder();
+        for (String element : postfixExpression) {
+            s.append(element).append(" ");
+        }
+        return s.toString();
+    }
 
     public static void main(String[] args) {
         start("1 - 2 - 4 ^ 5 * 3 * 6 / 7 ^ 2 ^ 2");
+        System.out.println(result);
+
     }
 }
